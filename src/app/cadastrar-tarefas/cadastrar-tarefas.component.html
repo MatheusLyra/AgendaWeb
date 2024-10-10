@@ -1,0 +1,80 @@
+<div class="card">
+    <div class="card-body">
+
+
+        <h4>Formulário para cadastro de tarefas</h4>
+        <p>Preencha os campos para incluir uma tarefa em sua agenda.</p>
+
+        <div *ngIf="mensagem != ''"> <!-- se variavel mensagem diferente de vazio apresenta mensagem na tela-->
+            <div class="alert alert-success mb-3">
+                <strong>Sucesso!</strong> {{mensagem}} <!-- imprime mensagem na tela COM SUCESSO -->
+            </div>
+        </div> 
+        <div *ngIf="mensagemErro != ''"> <!-- se variavel mensagem diferente de vazio apresenta mensagem na tela-->
+            <div class="alert alert-danger mb-3">
+                <strong>Erro!</strong> {{mensagemErro}} <!-- imprime mensagem na tela COM ERRO -->
+            </div>
+        </div>     
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()"><!-- onSubmit: manda para a função criada no ts para submeter os dados e fazer a integração api-->
+
+
+            <div class="row mb-3">
+                <div class="col">
+                    <label>Nome da tarefa:</label>
+                    <input type="text" class="form-control" placeholder="Digite aqui"
+                        formControlName="nome"/><!-- formControlName: nome igual o declarado no forms-->
+                </div>
+                <div class="col">
+                    <label>Data da tarefa:</label>
+                    <input type="date" class="form-control"
+                        formControlName="data"/>
+                </div>
+                <div class="col">
+                    <label>Hora da tarefa:</label>
+                    <input type="time" class="form-control"
+                        formControlName="hora"/>
+                </div>
+            </div>
+
+
+            <div class="row mb-3">
+                <div class="col">
+                    <label>Prioridade da tarefa:</label>
+                    <select class="form-select" formControlName="prioridade">
+                        <option value="">Escolha uma opção</option>
+                        <option value="1">Baixa</option>
+                        <option value="2">Média</option>
+                        <option value="3">Alta</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>Selecione a categoria:</label>
+                    <select class="form-select" formControlName="categoriaId">
+                        <option value="">Escolha uma opção</option>
+
+
+                        <option *ngFor="let c of categorias" value="{{c.id}}">
+                            {{c.descricao}}
+                        </option>
+
+
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="row mb-3">
+                <div class="col">
+                    <input type="submit" class="btn btn-success" value="Realizar Cadastro"/>
+                </div>
+            </div>
+
+
+        </form>
+
+
+    </div>
+</div>
+
+
